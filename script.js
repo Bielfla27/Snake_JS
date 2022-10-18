@@ -69,19 +69,33 @@ function jogo(){
         positionY = 0;
     }
 
-    //Posicionando a cobra
-    snake.push({x: positionX, y: positionY})
-
-    //espelhamento
-
     //configurando a cobra 
     ctx.fillStyle = "#00f102";
     for(let i=0; i < snake.length; i++){
         ctx.fillRect(snake[i].x*grid, snake[i].y*grid, grid-1, grid-1 )
+        if(snake[i].x == positionX && snake[i].y == positionY){
+            tam = 3;
+        }
     }
+
+    //Posicionando a cobra
+    snake.push({x: positionX, y: positionY})
+    
 
     //Apagando
     while(snake.length > tam){
         snake.shift();
     }
+
+    //configurando a comida
+    ctx.fillStyle = "#F1C40F"
+    ctx.fillRect(foodX*grid,foodY*grid, grid-1, grid-1)  
+
+    //comendo a comida
+    if(positionX == foodX && positionY == foodY){
+        tam++;
+        foodX = Math.floor(Math.random()*grid);
+        foodY = Math.floor(Math.random()*grid);
+    }
+ 
 }
